@@ -5,7 +5,7 @@ import {Server} from "ws";
 
 const app = express();
 
-app.use('/', express.static(path.join(__dirname, '..', 'dist')));
+app.use('/', express.static(path.join(__dirname, '..', 'dist'))); // 静态页面根目录
 
 app.get('/api/products', (req, res) => {
     let result = products;
@@ -33,13 +33,13 @@ app.get('/api/product/:id/comments', (req, res) => {
 });
 
 const server = app.listen(8000, 'localhost', () => {
-    console.log('Server started, http://localhost:8000');
+    console.log('Server started, http://localhost:8000'); // http服务器地址
 });
 
 const subscriptions = new Map<any, number[]>(); // webSocket, productIds
 const currentBids = new Map<number, number>(); // id, price
 
-const wsServer = new Server({port: 8085});
+const wsServer = new Server({port: 8085}); // webSocket服务器端口
 wsServer.on('connection', ws => {
     ws.on('message', message => {
         console.log(message);
